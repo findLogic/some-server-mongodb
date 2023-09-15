@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+    mongo_service:
+        image: mongo
+        container_name: some_mongodb
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=admin
+            - MONGO_INITDB_DATABASE=some_db_name
+        ports:
+            - 29999:27017
+        volumes:
+            - ./mongo-data:/data/db
+        command: --wiredTigerCacheSizeGB 1.5
+
+    # server_service:
+    #   build: .
+    #   container_name: some_server
+    #   ports:
+    #     - 3000:3000
+    #   volumes:
+    #     - ./.env:/app/.env
+    #   environment:
+    #     - MONGO_HOST=mongo_service
